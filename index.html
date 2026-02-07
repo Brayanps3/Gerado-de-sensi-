@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sheikyx Sensi Generator</title>
+
+<style>
+body{
+    margin:0;
+    background:#000;
+    font-family:Arial, sans-serif;
+    color:#ff0000;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.box{
+    background:#0a0a0a;
+    border:2px solid red;
+    padding:20px;
+    width:90%;
+    max-width:400px;
+    border-radius:10px;
+    text-align:center;
+    box-shadow:0 0 15px rgba(255,0,0,0.4);
+}
+
+input, select, button{
+    width:100%;
+    padding:10px;
+    margin-top:10px;
+    background:#000;
+    color:red;
+    border:1px solid red;
+    border-radius:5px;
+    font-size:16px;
+}
+
+button{
+    cursor:pointer;
+    font-weight:bold;
+}
+
+button:hover{
+    background:red;
+    color:black;
+}
+
+.error{
+    color:#ff5555;
+    margin-top:10px;
+}
+
+.result{
+    margin-top:15px;
+    border-top:1px solid red;
+    padding-top:10px;
+    text-align:left;
+    font-size:15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box" id="keyMenu">
+    <h2>🔐 INSERIR KEY</h2>
+    <input type="text" id="keyInput" placeholder="Digite sua key">
+    <button onclick="verificarKey()">ENTRAR</button>
+    <div class="error" id="keyError"></div>
+</div>
+
+<div class="box" id="sensiMenu" style="display:none;">
+    <h2>🎯 GERADOR DE SENSI</h2>
+
+    <select id="device">
+        <option value="android">📱 Android (Moto G60 / Outros)</option>
+        <option value="ios">🍎 iOS (iPhone)</option>
+    </select>
+
+    <button onclick="gerarSensi()">GERAR SENSI</button>
+
+    <div class="result" id="resultado">
+        Selecione o dispositivo e gere a sensi
+    </div>
+</div>
+
+<script>
+const KEY_CORRETA = "perm-skjKin67-sheikyxits";
+
+function verificarKey(){
+    const key = document.getElementById("keyInput").value;
+
+    if(key === KEY_CORRETA){
+        document.getElementById("keyMenu").style.display = "none";
+        document.getElementById("sensiMenu").style.display = "block";
+    } else {
+        document.getElementById("keyError").innerText = "❌ Key inválida";
+    }
+}
+
+function random(min, max){
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function gerarSensi(){
+    const device = document.getElementById("device").value;
+    let html = "";
+
+    if(device === "android"){
+        html = `
+        <b>📱 Plataforma:</b> Android<br><br>
+        <b>🎯 Sensibilidade</b><br>
+        Geral: ${random(120,200)}<br>
+        Red Dot: ${random(130,200)}<br>
+        2x Scope: ${random(130,200)}<br>
+        4x Scope: ${random(120,190)}<br>
+        AWM Scope: ${random(110,180)}<br><br>
+        <b>📐 DPI Recomendado:</b> ${random(480,720)}
+        `;
+    } else {
+        html = `
+        <b>🍎 Plataforma:</b> iOS (iPhone)<br><br>
+        <b>🎯 Sensibilidade</b><br>
+        Geral: ${random(110,170)}<br>
+        Red Dot: ${random(120,180)}<br>
+        2x Scope: ${random(120,180)}<br>
+        4x Scope: ${random(110,170)}<br>
+        AWM Scope: ${random(100,160)}<br><br>
+        <b>📐 Touch Scale:</b> ${random(65,90)}%
+        `;
+    }
+
+    document.getElementById("resultado").innerHTML = html;
+}
+</script>
+
+</body>
+</html>
